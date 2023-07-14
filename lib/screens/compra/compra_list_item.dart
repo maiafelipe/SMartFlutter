@@ -34,7 +34,7 @@ class CompraListItem extends StatelessWidget {
           }
         },
         trailing: TextButton(
-          child: Icon(Icons.more_vert),
+          child: const Icon(Icons.more_vert),
           onPressed: () {
             if (father != null) {
               father?.editarCompra(compra);

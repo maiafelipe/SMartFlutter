@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({
@@ -13,26 +14,26 @@ class DrawerMenu extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           
-          children: const <Widget>[
+          children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 0, 131, 88),
               ),
               child: Text(
-                'SMart',
-                style: TextStyle(
+                AppLocalizations.of(context)!.appName,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                 ),
               ),
             ),
             ListTile(
-              leading: Icon(Icons.shopping_basket),
-              title: Text('Compras'),
+              leading: const Icon(Icons.shopping_basket),
+              title: Text(AppLocalizations.of(context)!.shops),
             ),
             ListTile(
-              leading: Icon(Icons.monetization_on),
-              title: Text('Produtos'),
+              leading: const Icon(Icons.monetization_on),
+              title: Text(AppLocalizations.of(context)!.products),
             ),
           ],
         ),

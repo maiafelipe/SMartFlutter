@@ -6,6 +6,7 @@ import 'package:smart/screens/compra/compra_list_item.dart';
 import 'package:smart/models/compra.dart';
 import 'package:smart/components/center_left_text.dart';
 import 'package:smart/components/drawer_menu.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CompraListView extends StatefulWidget {
   final List<Compra> _compras = [];
@@ -24,7 +25,7 @@ class CompraListViewState extends State<CompraListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const CenterLeftText("Compras")),
+      appBar: AppBar(title: CenterLeftText(AppLocalizations.of(context)!.shops)),
       drawer: const DrawerMenu(),
       body: ListView.builder(
         itemCount: widget._compras.length,
@@ -46,7 +47,7 @@ class CompraListViewState extends State<CompraListView> {
     final Future future = Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
-        return CompraFormulario();
+        return const CompraFormulario();
       }),
     );
     future.then((compraRecebida) {
