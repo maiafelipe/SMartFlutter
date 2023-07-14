@@ -1,0 +1,18 @@
+{
+  "appName": "SMart",
+  "@appName": {
+    "description": "Nombre de la aplicación."
+  },
+  "shops": "Compras",
+  "products": "Productos",
+  "shopRegister": "Registro de la compra",
+  "shopUpdate": "Modificar compra",
+  "description": "Descripción",
+  "place": "Lugar",
+  "descriptionHint": "Azúcar...",
+  "placeHint": "Mercantil...",
+  "delete": "Eliminar",
+  "update": "Actualizar",
+  "register": "Registrarse"
+
+}

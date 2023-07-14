@@ -1,0 +1,17 @@
+{
+  "appName": "SMart",
+  "@appName": {
+    "description": "Name of the application."
+  },
+  "shops": "Shops",
+  "products": "Products",
+  "shopRegister": "Shop Register",
+  "shopUpdate": "Shop Update",
+  "description": "Description",
+  "place": "Place",
+  "descriptionHint": "Sugar...",
+  "placeHint": "Mart...",
+  "delete": "Delete",
+  "update": "Update",
+  "register": "Register"
+}

@@ -3,13 +3,15 @@ import 'package:smart/models/compra.dart';
 import 'package:smart/components/center_left_text.dart';
 import 'package:smart/components/form_field_padded.dart';
 import 'package:smart/models/dao/compra_dao.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class CompraFormulario extends StatelessWidget {
   const CompraFormulario({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const CenterLeftText("Cadastro Compra")),
+      appBar: AppBar(title: CenterLeftText(AppLocalizations.of(context)!.shopRegister)),
       body: CompraFormularioBody(),
     );
   }
@@ -26,13 +28,13 @@ class CompraFormularioBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          FormFieldPadded(_controllerFieldDesc, "Descrição", "Compra rápida...",
+          FormFieldPadded(_controllerFieldDesc, AppLocalizations.of(context)!.description, AppLocalizations.of(context)!.descriptionHint,
               icon: Icons.short_text),
-          FormFieldPadded(_controllerFieldLocal, "Local", "mercantil...",
+          FormFieldPadded(_controllerFieldLocal, AppLocalizations.of(context)!.place, AppLocalizations.of(context)!.placeHint,
               icon: Icons.map_outlined),
           ElevatedButton(
             onPressed: () => _cadastrarCompra(context),
-            child: const Text("Cadastrar"),
+            child: Text(AppLocalizations.of(context)!.register),
           ),
         ],
       ),
@@ -40,7 +42,6 @@ class CompraFormularioBody extends StatelessWidget {
   }
 
   void _cadastrarCompra(BuildContext context) {
-    debugPrint("Apertou cadastro.");
     Compra compra = Compra(
       _controllerFieldDesc.text,
       _controllerFieldLocal.text,
