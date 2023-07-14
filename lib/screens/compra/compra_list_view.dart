@@ -84,18 +84,20 @@ class CompraListViewState extends State<CompraListView> {
         }),
       );
       future.then((value) {
-        if (value.status != null) {
-          for (compra in widget._compras) {
-            if (compra.id == value.id) {
-              compra = value;
+        if (value != null) {
+          if (value.status != null) {
+            for (compra in widget._compras) {
+              if (compra.id == value.id) {
+                compra = value;
+              }
             }
+          } else {
+            widget._compras.removeWhere((element) {
+              return element.id == value.id;
+            });
           }
-        } else {
-          widget._compras.removeWhere((element) {
-            return element.id == value.id;
-          });
+          reloadListaCompras();
         }
-        reloadListaCompras();
       });
     }
   }
