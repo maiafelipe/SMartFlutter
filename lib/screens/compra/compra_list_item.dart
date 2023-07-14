@@ -8,14 +8,29 @@ class CompraListItem extends StatelessWidget {
   const CompraListItem(this.compra, {this.father, super.key});
   @override
   Widget build(BuildContext context) {
+    CompraStatus status = compra.status ?? CompraStatus.active;
     return Card(
       child: ListTile(
         leading: const Icon(Icons.monetization_on_outlined),
-        title: Text(compra.descricao),
-        subtitle: Text(compra.local),
-        onLongPress: () {
+        title: Text(
+          compra.descricao,
+          style: TextStyle(
+            decoration: (status == CompraStatus.disable
+                ? TextDecoration.lineThrough
+                : null),
+          ),
+        ),
+        subtitle: Text(
+          compra.local,
+          style: TextStyle(
+            decoration: (status == CompraStatus.disable
+                ? TextDecoration.lineThrough
+                : null),
+          ),
+        ),
+        onTap: () {
           if (father != null) {
-            father?.apagarCompra(compra);
+            father?.toggleStatusCompra(compra);
           }
         },
         trailing: TextButton(

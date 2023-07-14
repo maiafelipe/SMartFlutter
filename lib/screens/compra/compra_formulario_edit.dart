@@ -34,6 +34,8 @@ class CompraFormularioEditBody extends StatelessWidget {
           FormFieldPadded(_controllerFieldLocal, "Local", "mercantil...",
               icon: Icons.map_outlined),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
                 onPressed: () => _apagarCompra(context),
@@ -63,6 +65,7 @@ class CompraFormularioEditBody extends StatelessWidget {
     if (compra.id != null) {
       CompraDAO.deleteCompra(compra.id ??= 0);
     }
+    compra.status = null;
     Navigator.pop(context, compra);
   }
 }

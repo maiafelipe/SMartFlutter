@@ -17,7 +17,7 @@ class CompraListView extends StatefulWidget {
 class CompraListViewState extends State<CompraListView> {
   @override
   void initState() {
-    loadListaCompras();
+    loadDataListaCompras();
     super.initState();
   }
 
@@ -49,32 +49,30 @@ class CompraListViewState extends State<CompraListView> {
         return CompraFormulario();
       }),
     );
-    future.then((listaRecebida) {
-      if (listaRecebida != null) {
-        loadListaCompras();
+    future.then((compraRecebida) {
+      if (compraRecebida != null) {
+        widget._compras.add(compraRecebida);
+        reloadListaCompras();
       }
     });
   }
 
-  void loadListaCompras() {
+  void loadDataListaCompras() {
     widget._compras.clear();
     Future<List<Compra>> lista = CompraDAO.selectAllCompras();
     lista.then((lista) {
       setState(() {
         for (Compra compra in lista) {
-          debugPrint("$compra");
           widget._compras.add(compra);
         }
       });
     });
   }
 
-  void apagarCompra(Compra compra) {
-    if (compra.id != null) {
-      int id = compra.id ?? 0;
-      CompraDAO.deleteCompra(id);
-    }
-    loadListaCompras();
+  void reloadListaCompras() {
+    setState(() {
+      debugPrint("Hot reloading a lista ${widget._compras.length}.");
+    });
   }
 
   void editarCompra(Compra compra) {
@@ -86,9 +84,39 @@ class CompraListViewState extends State<CompraListView> {
         }),
       );
       future.then((value) {
-        loadListaCompras();
+        if (value.status != null) {
+          for (compra in widget._compras) {
+            if (compra.id == value.id) {
+              compra = value;
+            }
+          }
+        } else {
+          widget._compras.removeWhere((element) {
+            return element.id == value.id;
+          });
+        }
+        reloadListaCompras();
       });
     }
+  }
+
+  void toggleStatusCompra(Compra compra) {
+    if (compra.id != null) {
+      int id = compra.id ?? 0;
+      if (compra.status == CompraStatus.active) {
+        compra.status = CompraStatus.disable;
+      } else {
+        compra.status = CompraStatus.active;
+      }
+      CompraDAO.updateCompra(compra);
+    }
+    for (Compra c in widget._compras) {
+      if (c.id == compra.id) {
+        c.status = compra.status;
+      }
+    }
+    reloadListaCompras();
+    //loadDataListaCompras();
   }
 
   void testeDatabase(BuildContext context) {
