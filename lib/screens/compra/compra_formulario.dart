@@ -41,9 +41,15 @@ class CompraFormularioBody extends StatelessWidget {
 
   void _cadastrarCompra(BuildContext context) {
     debugPrint("Apertou cadastro.");
-    Compra compra =
-        Compra(_controllerFieldDesc.text, _controllerFieldLocal.text);
-    CompraDAO.insertCompra(compra);
-    Navigator.pop(context, compra);
+    Compra compra = Compra(
+      _controllerFieldDesc.text,
+      _controllerFieldLocal.text,
+      status: CompraStatus.active,
+    );
+    Future<int> id = CompraDAO.insertCompra(compra);
+    id.then((value) {
+      compra.id = value;
+      Navigator.pop(context, compra);
+    });
   }
 }

@@ -21,6 +21,7 @@ class FormFieldPadded extends StatelessWidget {
       child: TextField(
         controller: controllerField,
         style: const TextStyle(fontSize: 24.0),
+        keyboardType: TextInputType.multiline,
         decoration: InputDecoration(
           icon: icon != null ? Icon(icon) : null,
           labelText: label,

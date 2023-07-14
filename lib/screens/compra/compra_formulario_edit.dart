@@ -65,6 +65,7 @@ class CompraFormularioEditBody extends StatelessWidget {
     if (compra.id != null) {
       CompraDAO.deleteCompra(compra.id ??= 0);
     }
+    compra.status = null;
     Navigator.pop(context, compra);
   }
 }
