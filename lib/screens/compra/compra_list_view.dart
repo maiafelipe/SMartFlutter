@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart/models/dao/compra_dao.dart';
 import 'package:smart/screens/compra/compra_formulario.dart';
+import 'package:smart/screens/compra/compra_formulario_edit.dart';
 import 'package:smart/screens/compra/compra_list_item.dart';
 import 'package:smart/models/compra.dart';
 import 'package:smart/components/center_left_text.dart';
@@ -42,7 +43,6 @@ class CompraListViewState extends State<CompraListView> {
   }
 
   void callNewCompraForm(BuildContext context) {
-    debugPrint("Abrindo Formulário.");
     final Future future = Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
@@ -69,13 +69,26 @@ class CompraListViewState extends State<CompraListView> {
     });
   }
 
-  void apagarCompra(Compra compra){
-    if(compra.id != null){
+  void apagarCompra(Compra compra) {
+    if (compra.id != null) {
       int id = compra.id ?? 0;
       CompraDAO.deleteCompra(id);
     }
     loadListaCompras();
-    debugPrint("Apagou e setou o state.");
+  }
+
+  void editarCompra(Compra compra) {
+    if (compra.id != null) {
+      final Future future = Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return CompraFormularioEdit(compra);
+        }),
+      );
+      future.then((value) {
+        loadListaCompras();
+      });
+    }
   }
 
   void testeDatabase(BuildContext context) {

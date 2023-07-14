@@ -28,7 +28,7 @@ class Compra {
     return {
       'descricao': descricao,
       'local': local,
-      'status': describeEnum(status??CompraStatus.active),
+      'status': describeEnum(status ?? CompraStatus.active),
     };
   }
 

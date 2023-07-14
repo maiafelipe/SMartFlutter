@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart/models/compra.dart';
-import 'package:smart/models/dao/compra_dao.dart';
 import 'package:smart/screens/compra/compra_list_view.dart';
 
 class CompraListItem extends StatelessWidget {
@@ -15,10 +14,18 @@ class CompraListItem extends StatelessWidget {
         title: Text(compra.descricao),
         subtitle: Text(compra.local),
         onLongPress: () {
-          if(father!=null){
+          if (father != null) {
             father?.apagarCompra(compra);
           }
         },
+        trailing: TextButton(
+          child: Icon(Icons.more_vert),
+          onPressed: () {
+            if (father != null) {
+              father?.editarCompra(compra);
+            }
+          },
+        ),
       ),
     );
   }
