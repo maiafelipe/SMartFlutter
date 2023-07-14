@@ -34,6 +34,8 @@ class CompraFormularioEditBody extends StatelessWidget {
           FormFieldPadded(_controllerFieldLocal, "Local", "mercantil...",
               icon: Icons.map_outlined),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
                 onPressed: () => _apagarCompra(context),

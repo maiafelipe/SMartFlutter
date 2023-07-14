@@ -91,6 +91,19 @@ class CompraListViewState extends State<CompraListView> {
     }
   }
 
+  void toggleStatusCompra(Compra compra) {
+    if (compra.id != null) {
+      int id = compra.id ?? 0;
+      if (compra.status == CompraStatus.active) {
+        compra.status = CompraStatus.disable;
+      } else {
+        compra.status = CompraStatus.active;
+      }
+      CompraDAO.updateCompra(compra);
+    }
+    loadListaCompras();
+  }
+
   void testeDatabase(BuildContext context) {
     debugPrint("Testando o Banco de dados.");
     Future<int> id = CompraDAO.insertCompra(Compra("Teste a", "local"));
