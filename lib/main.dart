@@ -4,18 +4,35 @@ import 'package:smart/screens/compra/compra_list_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
+  /// Garante a instanciação de biblioteca de código nativo.
   WidgetsFlutterBinding.ensureInitialized();
-  // Open the database and store the reference.
-  runApp(
-    const SmartApp(),
-  );
+
+  /// Inicializa o App usando chamada run do Flutter.
+  runApp(const SmartApp());
 }
 
+/// Classe SmartApp.
+///
+/// Contem o Widget Raiz da aplicação.
+///
+/// Cria o Widget MaterialApp com suas definições de tema
+/// e de localização.
+///
+/// Define a home: CompraListView().
+///
+/// @author Felipe
 class SmartApp extends StatelessWidget {
+  /// Construtor da classe com parâmetro
+  /// nomeado opcional para superclasse.
   const SmartApp({
     super.key,
   });
 
+  /// Metodo build.
+  /// Sobrescreve comportamento da superclasse.
+  /// Retorna o widget MaterialApp que será
+  /// raiz da aplicação.
+  /// Define suas devidas configurações.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +44,7 @@ class SmartApp extends StatelessWidget {
       home: CompraListView(),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
-        AppLocalizations.delegate, // Add this line
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
