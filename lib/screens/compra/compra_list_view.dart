@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart/models/dao/compra_dao.dart';
-import 'package:smart/screens/compra/compra_formulario.dart';
+import 'package:smart/screens/compra/compra_formulario_create.dart';
 import 'package:smart/screens/compra/compra_formulario_edit.dart';
 import 'package:smart/screens/compra/compra_list_item.dart';
 import 'package:smart/models/compra.dart';
@@ -8,60 +8,46 @@ import 'package:smart/components/center_left_text.dart';
 import 'package:smart/components/drawer_menu.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// Classe CompraListView.
+/// Classe [CompraListView].
 ///
-/// Tela responsável pode visualização
-/// da lista de compras.
+/// Tela responsável pode visualização da lista de compras.
 ///
-/// Stateful: permite mudança de estado.
-/// Seu componentes não são estáticos
-/// podendo variar programaticamente.
+/// É [StatefulWidget]: permite mudança de estado.
+/// Seu componentes não são estáticos podendo variar programaticamente.
 ///
-/// Cada estado dessa tela deve ser
-/// descrito de acordo com a classe
-/// CompraListViewState.
+/// Cada estado dessa tela deve ser descrito de acordo com a classe [CompraListViewState].
 ///
-/// @see CompraListViewState
-/// @author Felipe
+/// Autor Felipe.
 class CompraListView extends StatefulWidget {
   /// Armazena a lista com o modelo de compra.
   final List<Compra> _compras = [];
 
-  /// Construtor da classe com parâmetro
-  /// nomeado opcional para superclasse.
+  /// Construtor da classe com parâmetro nomeado opcional para superclasse.
   CompraListView({super.key});
 
-  /// Define a classe que será chamada
-  /// a cada novo estado da tela.
+  /// Define a classe que será chamada a cada novo estado da tela.
   @override
   State<StatefulWidget> createState() => CompraListViewState();
 }
 
-/// Classe CompraListViewState.
+/// Classe [CompraListViewState].
 ///
-/// Descreve a tela para cada novo
-/// estado que pode assumir.
+/// Descreve a tela para cada novo estado que pode assumir.
 ///
-/// Desenha o widget CompraListView
-/// de acordo com a configuração da
-/// List _compras.
+/// Desenha o widget stateful [CompraListView] de acordo com a configuração da List _compras.
 ///
-/// @author Felipe
+/// Autor Felipe.
 class CompraListViewState extends State<CompraListView> {
-  /// Realiza a configuração inicial do widget
-  /// é chamada apenas para o State inicial.
+  /// Realiza a configuração inicial do widget é chamada apenas para o State inicial.
   @override
   void initState() {
     loadDataListaCompras();
     super.initState();
   }
 
-  /// Constrio todos os componente da tela.
-  /// Organiza tudo em um Scaffold.
-  /// Adiciona AppBar e DrawerMenu.
-  /// Cria um ListView com um item
-  /// para cada elemento da lista _compras
-  /// do _widget (classe stateful).
+  /// Construi todos os componente da tela.
+  /// Organiza tudo em um Scaffold, adiciona AppBar e DrawerMenu.
+  /// Cria um ListView com um item para cada elemento da lista _compras do _widget (classe stateful).
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,17 +70,13 @@ class CompraListViewState extends State<CompraListView> {
     );
   }
 
-  /// Método callNewCompraForm.
-  /// Chamado quando o botão de uma nova
-  /// compra é apertado.
-  /// Deve criar a rota para a tela
-  /// com o formulário para cadastrar uma
-  /// nova compra.
+  /// Chamado quando o botão de uma nova compra é apertado.
+  /// Cria a rota para a tela com o formulário para cadastrar uma nova compra.
   void callNewCompraForm(BuildContext context) {
     final Future future = Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
-        return const CompraFormulario();
+        return const CompraFormularioCreate();
       }),
     );
     future.then((compraRecebida) {
@@ -105,12 +87,9 @@ class CompraListViewState extends State<CompraListView> {
     });
   }
 
-  /// Método loadDataListaCompras.
-  /// Carregamento completo da lista
-  /// _compras que está no _widget.
+  /// Carregamento completo da lista  [_compras] que está no _widget [CompraListView].
   /// A lista é completamente recriada.
-  /// Sugestão: mover manipulação
-  /// da lista para a classe Stateful.
+  /// TODO: mover manipulação da lista para a classe [CompraListView].
   void loadDataListaCompras() {
     widget._compras.clear();
     Future<List<Compra>> lista = CompraDAO.selectAllCompras();
@@ -123,29 +102,19 @@ class CompraListViewState extends State<CompraListView> {
     });
   }
 
-  /// Método reloadListaCompras.
-  /// Apenas chama o redesenho
-  /// do estado. Quando ocorre
-  /// qualquer mudança na lista,
-  /// esse método deve ser chamado
-  /// em seguida.
+  /// Apenas chama o redesenho do estado. 
+  /// Quando ocorre qualquer mudança na lista, esse método deve ser chamado em seguida.
   void reloadListaCompras() {
     setState(() {
       debugPrint("Hot reloading a lista ${widget._compras.length}.");
     });
   }
 
-  /// Método editarCompra.
-  /// Chamado quando o botão de edição
-  /// de uma compra é pressionado.
-  /// Deve criar a rota para chamar
-  /// a tela de edição da compra, informando
-  /// qual a compra será editada.
-  /// Quando recebe o resultado da tela, deve
-  /// solicitar o redesenho para apresentar
-  /// qualquer alteração.
-  /// @arg compra: qual compra chamou.
-  void editarCompra(Compra compra) {
+  /// Chamado quando o botão de edição de uma compra é pressionado.
+  /// Deve criar a rota para chamar a tela de edição da compra, informando qual a compra será editada.
+  /// Quando recebe o resultado da tela, deve solicitar o redesenho para apresentar qualquer alteração.
+  /// O argumento [compra] contem qual compra realizou a chamada.
+  void callEditarCompraForm(Compra compra) {
     if (compra.id != null) {
       final Future future = Navigator.push(
         context,
@@ -172,16 +141,11 @@ class CompraListViewState extends State<CompraListView> {
     }
   }
 
-  /// Método toggleStatusCompra.
-  /// Chamado quando o status de uma compra
-  /// é alterado.
-  /// Deve modificar o valor do statos da
-  /// compra na lista e solicitar o redesenho da
-  /// tela.
-  /// @arg compra: qual compra chamou.
+  /// Chamado quando o status de uma compra é alterado.
+  /// Deve modificar o valor do statos da compra na lista e solicitar o redesenho da tela.
+  /// O argumento [compra] contem qual compra realizou a chamada.
   void toggleStatusCompra(Compra compra) {
     if (compra.id != null) {
-      int id = compra.id ?? 0;
       if (compra.status == CompraStatus.active) {
         compra.status = CompraStatus.disable;
       } else {

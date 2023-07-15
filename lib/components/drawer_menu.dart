@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Classe [DrawerMenu].
+///
+/// Componente reutilizavel para o menu de gaveta da aplicação.
+///
+/// Contem todos os dados e componentes desse menu.
+///
+/// Autor Felipe.
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({
-    super.key,
-  });
+  /// Construtor da classe com o parâmetro nomeado opcional [key] para superclasse [StatelessWidget].
+  const DrawerMenu({super.key});
 
+  /// Sobrescreve comportamento [build] da superclasse.
+  /// Retorna o widget [Drawer] embalado em um [SizedBox].
+  /// Contem todos os componentes da gaveta.
+  /// Define suas devidas configurações.
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -13,7 +23,6 @@ class DrawerMenu extends StatelessWidget {
       child: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(

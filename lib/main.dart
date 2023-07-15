@@ -11,34 +11,28 @@ void main() {
   runApp(const SmartApp());
 }
 
-/// Classe SmartApp.
+/// Classe [SmartApp].
 ///
 /// Contem o Widget Raiz da aplicação.
 ///
-/// Cria o Widget MaterialApp com suas definições de tema
-/// e de localização.
+/// Cria o Widget [MaterialApp] com suas definições de tema e de localização.
 ///
-/// Define a home: CompraListView().
+/// Define a home: [CompraListView].
 ///
-/// @author Felipe
+/// Autor: Felipe.
 class SmartApp extends StatelessWidget {
-  /// Construtor da classe com parâmetro
-  /// nomeado opcional para superclasse.
-  const SmartApp({
-    super.key,
-  });
+  /// Construtor da classe com parâmetro nomeado opcional [key] para superclasse [StatelessWidget].
+  const SmartApp({super.key});
 
-  /// Metodo build.
-  /// Sobrescreve comportamento da superclasse.
-  /// Retorna o widget MaterialApp que será
-  /// raiz da aplicação.
+  /// Sobrescreve comportamento [build] da superclasse.
+  /// Retorna o widget [MaterialApp] que será raiz da aplicação.
   /// Define suas devidas configurações.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 16, 40, 23)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 16, 40, 23)),
         useMaterial3: true,
       ),
       home: CompraListView(),
