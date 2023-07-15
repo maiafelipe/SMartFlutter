@@ -37,7 +37,6 @@ class SmartApp extends StatelessWidget {
         Locale('es'), // Spanish
         Locale('en'), // English
       ],
-      locale: const Locale('pt'),
     );
   }
 }
