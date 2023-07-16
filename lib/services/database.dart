@@ -37,6 +37,10 @@ class DBProvider {
   /// Não pode ser null, mas pode ser inicializada posteriormente (late).
   late Database _database;
 
+  /// Contem a versão do banco que será utilizada.
+  /// Modificar essa variável para cima aciona o comportamento onUpgrade.
+  int bdVersion = 13;
+
   /// Regista a inicialização do _database.
   /// Quando a inicialização ocorrer, passar para true.
   bool ensureInitialized = false;
@@ -59,21 +63,27 @@ class DBProvider {
     return openDatabase(
       p.join(await getDatabasesPath(), 'smart_database.db'),
       onCreate: (db, version) {
-        return scriptsCreate(db, version);
+        return _scriptsCreate(db, version);
       },
       onUpgrade: (db, oldVersion, newVersion) {
         db.execute(CompraDAO.compraDropSQL);
-        return scriptsUpgrade(db, oldVersion, newVersion);
+        return _scriptsUpgrade(db, oldVersion, newVersion);
       },
-      version: 11,
+      version: bdVersion,
     );
   }
 
-  Future<void> scriptsCreate(Database db, int version) async{
+  /// Scripts para a criação inicial do banco de dados.
+  /// O parâmetros [db] carrega a conexão com o banco que será utilizada e [version] a versão do mesmo.
+  Future<void> _scriptsCreate(Database db, int version) async{
     return db.execute(CompraDAO.compraCreateSQL);
   }
 
-  Future<void> scriptsUpgrade (Database db, int oldVersion, int newVersion) async {
+  /// Scripts para upgrade do banco de dados.
+  /// Será executado apenas quando a versão do banco for alterada.
+  /// O parâmetros [db] carrega a conexão com o banco que será utilizada.
+  /// Os parâmetros [oldVersion] e [newVersion] o controle da versão modificada.
+  Future<void> _scriptsUpgrade (Database db, int oldVersion, int newVersion) async {
     await db.execute(CompraDAO.compraDropSQL);
     return db.execute(CompraDAO.compraCreateSQL);
   }

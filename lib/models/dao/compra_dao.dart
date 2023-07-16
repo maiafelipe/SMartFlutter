@@ -13,16 +13,26 @@ import 'package:sqflite/sqflite.dart';
 ///
 /// Autor Felipe.
 class CompraDAO {
+  /// Rótulo para tabela compra no banco.
   static const String tableCompra = "compra";
+
+  /// Rótulo para coluna id da tabela compra no banco.
   static const String columnId = "id_compra";
+
+  /// Rótulo para coluna descricao da tabela compra no banco.
   static const String columnDescricao = "descricao";
+
+  /// Rótulo para coluna local da tabela compra no banco.
   static const String columnLocal = "local";
+
+  /// Rótulo para coluna status da tabela compra no banco.
   static const String columnStatus = "status";
 
   /// Comando SQL para criação da tabela compra.
   static const String compraCreateSQL =
       "CREATE TABLE $tableCompra($columnId INTEGER PRIMARY KEY AUTOINCREMENT, $columnDescricao TEXT, $columnLocal TEXT, $columnStatus TEXT)";
   
+  /// Comando SQL para apagar a tabela compra.
   static const String compraDropSQL =
       "DROP TABLE IF EXISTS $tableCompra";
 
