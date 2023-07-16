@@ -1,16 +1,33 @@
-# smart
+# SMart
 
-A new Flutter project.
+Um simples CRUD para criação de listas de supermercado.
 
-## Getting Started
+## Features: O que foi feito até o momento
 
-This project is a starting point for a Flutter application.
+Contém todo o crud para a criação de uma única lista de mercado.
 
-A few resources to get you started if this is your first Flutter project:
+Os itens da lista contém descrição, local e status.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+O botão (+) da home permite adicional um novo item, informando descrição e local.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O botão (...) de cada item permite modificar descrição e local daquele item específico e apagar o item.
+
+Apertar no item da lista modifica seu status, essa modificação altera a visualização colocando um strikethrough.
+
+## O que foi utilizado
+
+A persistência ocorre por meio de SQFlite.
+
+A classe [DBProvider] configura a conexão com o banco, utilizando o padrão Singleton.
+
+## Organização do projeto
+
+Na pasta [models] estão os modelos utilizados, carregando suas regras de negócio e os seus DAOs.
+
+Na pasta [screens] estão as views do projeto, telas para visualização da lista, criação e edição.
+
+Na pasta [componentes] estão alguns widgets personalizados que possuem potencial de ser reutilizados no projeto.
+
+na pasta [services] estão provedores de serviços relevantes para o projeto.
+
+
