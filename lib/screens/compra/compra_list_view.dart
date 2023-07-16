@@ -28,6 +28,7 @@ class CompraListView extends StatefulWidget {
   /// Define a classe que será chamada a cada novo estado da tela.
   @override
   State<StatefulWidget> createState() => CompraListViewState();
+  
 }
 
 /// Classe [CompraListViewState].
@@ -89,7 +90,6 @@ class CompraListViewState extends State<CompraListView> {
 
   /// Carregamento completo da lista  [_compras] que está no _widget [CompraListView].
   /// A lista é completamente recriada.
-  /// TODO: mover manipulação da lista para a classe [CompraListView].
   void loadDataListaCompras() {
     widget._compras.clear();
     Future<List<Compra>> lista = CompraDAO.selectAllCompras();
