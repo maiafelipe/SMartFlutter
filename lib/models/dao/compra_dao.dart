@@ -13,9 +13,18 @@ import 'package:sqflite/sqflite.dart';
 ///
 /// Autor Felipe.
 class CompraDAO {
+  static const String tableCompra = "compra";
+  static const String columnId = "id_compra";
+  static const String columnDescricao = "descricao";
+  static const String columnLocal = "local";
+  static const String columnStatus = "status";
+
   /// Comando SQL para criação da tabela compra.
-  static const String tableCompra =
-      "CREATE TABLE compra(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT, local TEXT, status TEXT)";
+  static const String compraCreateSQL =
+      "CREATE TABLE $tableCompra($columnId INTEGER PRIMARY KEY AUTOINCREMENT, $columnDescricao TEXT, $columnLocal TEXT, $columnStatus TEXT)";
+  
+  static const String compraDropSQL =
+      "DROP TABLE IF EXISTS $tableCompra";
 
   /// Operação de inserir uma compra no banco.
   /// Recebe a [compra] como um parâmetro e retorna o id que a compra receberá na inserção.
@@ -31,7 +40,7 @@ class CompraDAO {
     DBProvider dbp = DBProvider.getInstance();
     Database db = await dbp.database;
     int id = await db.insert(
-      'compra',
+      tableCompra,
       compra.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -44,13 +53,13 @@ class CompraDAO {
   static Future<List<Compra>> selectAllCompras() async {
     DBProvider dbp = DBProvider.getInstance();
     Database db = await dbp.database;
-    final List<Map<String, dynamic>> maps = await db.query('compra');
+    final List<Map<String, dynamic>> maps = await db.query(tableCompra);
     return List.generate(maps.length, (i) {
       return Compra(
-        maps[i]["descricao"],
-        maps[i]["local"],
-        id: maps[i]["id"],
-        status: maps[i]["status"] == describeEnum(CompraStatus.disable)
+        maps[i][columnDescricao],
+        maps[i][columnLocal],
+        id: maps[i][columnId],
+        status: maps[i][columnStatus] == describeEnum(CompraStatus.disable)
             ? CompraStatus.disable
             : CompraStatus.active,
       );
@@ -64,17 +73,17 @@ class CompraDAO {
     DBProvider dbp = DBProvider.getInstance();
     Database db = await dbp.database;
     final List<Map<String, dynamic>> maps = await db.query(
-      "compra",
-      where: "id=?",
+      tableCompra,
+      where: "$columnId=?",
       whereArgs: [id],
       limit: 1,
     );
     if (maps.isNotEmpty) {
       return Compra(
-        maps.first["descricao"],
-        maps.first["local"],
-        id: maps.first["id"],
-        status: maps.first["status"] == describeEnum(CompraStatus.disable)
+        maps.first[columnDescricao],
+        maps.first[columnLocal],
+        id: maps.first[columnId],
+        status: maps.first[columnStatus] == describeEnum(CompraStatus.disable)
             ? CompraStatus.disable
             : CompraStatus.active,
       );
@@ -89,8 +98,8 @@ class CompraDAO {
     DBProvider dbp = DBProvider.getInstance();
     Database db = await dbp.database;
     await db.delete(
-      'compra',
-      where: 'id = ?',
+      tableCompra,
+      where: '$columnId = ?',
       whereArgs: [id],
     );
   }
@@ -103,10 +112,10 @@ class CompraDAO {
     DBProvider dbp = DBProvider.getInstance();
     Database db = await dbp.database;
     int count = await db.update(
-      'compra',
+      tableCompra,
       compra.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
-      where: 'id = ?',
+      where: '$columnId = ?',
       whereArgs: [compra.id],
     );
     return count;

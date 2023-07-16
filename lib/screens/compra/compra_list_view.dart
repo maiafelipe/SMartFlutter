@@ -98,6 +98,7 @@ class CompraListViewState extends State<CompraListView> {
         for (Compra compra in lista) {
           widget._compras.add(compra);
         }
+        debugPrint("Carregamento completo da lista ${widget._compras.length}.");
       });
     });
   }

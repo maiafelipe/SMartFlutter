@@ -59,13 +59,22 @@ class DBProvider {
     return openDatabase(
       p.join(await getDatabasesPath(), 'smart_database.db'),
       onCreate: (db, version) {
-        return db.execute(
-          CompraDAO.tableCompra,
-        );
+        return scriptsCreate(db, version);
       },
-
-      /// TODO: necessário definir comportamento UPGRADE.
-      version: 10,
+      onUpgrade: (db, oldVersion, newVersion) {
+        db.execute(CompraDAO.compraDropSQL);
+        return scriptsUpgrade(db, oldVersion, newVersion);
+      },
+      version: 11,
     );
+  }
+
+  Future<void> scriptsCreate(Database db, int version) async{
+    return db.execute(CompraDAO.compraCreateSQL);
+  }
+
+  Future<void> scriptsUpgrade (Database db, int oldVersion, int newVersion) async {
+    await db.execute(CompraDAO.compraDropSQL);
+    return db.execute(CompraDAO.compraCreateSQL);
   }
 }
